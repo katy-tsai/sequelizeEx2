@@ -1,2 +1,2 @@
-# sequelizeEx2
-sequelizeEx2
+# sequelizeEx
+sequelize example
