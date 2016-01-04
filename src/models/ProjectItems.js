@@ -46,6 +46,9 @@ module.exports = function(sequelize,DataTypes){
         }else{
           return ProjectItems.create(entity);
         }
+      },
+      bulkDestroy:function(ids){
+        return ProjectItems.destroy({where:{ id:ids}});
       }
    }
 
