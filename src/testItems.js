@@ -5,11 +5,9 @@ const ItemsDao = require('./ItemsDao');
 var _ = require('lodash');
 ItemsDao.getTreeItems(1,function(tree){
    console.log( tree._root.children);
-  var selectNode = tree._root.children[0];
-    tree._root.children[0].data.hasChild="Y";
-    tree._root.children[0].data.order = 6;
+  var selectNode = tree._root.children[1];
     var data = {
-      "item":"node-c",
+      "item":"node-123",
       "hasChild":"N",
       "order":"1",
       "type":"node",
@@ -18,9 +16,9 @@ ItemsDao.getTreeItems(1,function(tree){
     }
     //add (子節點，母節點attr，tree.traverseDF,attr)
     tree.add(data,selectNode.data.id,tree.traverseDF,"id");
-    var deletNote = selectNode.children[0];
-    //remove(子節點attr，母節點attr，tree.traverseDF,attr)
-    tree.remove(deletNote.data.id,selectNode.data.id,tree.traverseDF,"id");
+    // var deletNote = selectNode.children[0];
+    // //remove(子節點attr，母節點attr，tree.traverseDF,attr)
+    // tree.remove(deletNote.data.id,selectNode.data.id,tree.traverseDF,"id");
 
     ItemsDao.crudTree(tree,1,function(result){
       console.log(result)

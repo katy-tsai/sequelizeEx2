@@ -50,6 +50,7 @@ Tree.prototype.traverseBFOrder = function(callback){
   queue.enqueue(this._root);
   var currentTree = queue.dequeue();
   while(currentTree){
+    currentTree.data.hasChild = currentTree.children.length>0?"Y":"N";
     for(var i=0,length=currentTree.children.length;i<length;i++){
       currentTree.children[i].data.order = i;
       queue.enqueue(currentTree.children[i]);
@@ -80,8 +81,6 @@ Tree.prototype.add = function(data,toData,traversal,attr){
   }
 }
 
-
-
 Tree.prototype.remove = function(data,fromData,traversal,attr){
   var tree = this;
   var parent = null;
@@ -95,7 +94,6 @@ Tree.prototype.remove = function(data,fromData,traversal,attr){
 
   this.contains(callback,traversal);
   if(parent){
-    console.log("===========parent===========",parent)
     index = findIndex(parent.children,data,attr);
     if(index === undefined){
       throw new Error('Node to remove does not exist.');
