@@ -26,7 +26,7 @@ module.exports = function(sequelize,DataTypes){
       var projectId = entity.ProjectId;
       ProjectItems.findAll({where:{
         ProjectId:projectId
-      }}).then(onSuccess).catch(onError);
+      },order:'`order`'}).then(onSuccess).catch(onError);
     },
      createOrUpdate:function(onSuccess,onError){
         var entity = this.get();

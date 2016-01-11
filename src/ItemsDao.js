@@ -1,19 +1,40 @@
 var Q = require('q');
-const modeles = require('./models');
+const models = require('./models');
 const _ = require('lodash');
 const Project = models.Project;
 const ProjectItems = models.ProjectItems;
+const treeData = require('./util/TreeData');
 
 module.exports = {
-  setOrder:function(items){
-  return items.map(function(item,index){
+  getTreeItems:function(ProjectId,callback){
+    var projectItems =ProjectItems.build();
+    projectItems.getAllByProjectId({ProjectId:ProjectId},function(results){
+      var items =results.map(function(obj){
+        return obj.get();
+      });
+      var  tree = treeData.init(items);
+      callback(tree);
+
+    },function(err){
+      console.log(err)
+    })
+  },
+  setOrder:function(childrens){
+  return childrens.map(function(item,index){
       item.order = index;
       return item;
     });
   },
+  crudTree:function(tree,ProjectId,callback){
+    var items = [];
+     tree.traverseBFOrder(function(node){
+       items.push(node.data);
+     });
+     items = _.drop(items);
 
+     this.crud(items,ProjectId,callback);
+  },
   createOrUpdateList:function(items,callback){
-    items = this.setOrder(items);
     var promises = [];
     for(var i in items){
       var item = items[i];
