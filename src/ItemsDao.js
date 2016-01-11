@@ -1,8 +1,8 @@
 var Q = require('q');
 const modeles = require('./models');
 const _ = require('lodash');
-const Project = modeles.Project;
-const ProjectItems = modeles.ProjectItems;
+const Project = models.Project;
+const ProjectItems = models.ProjectItems;
 
 module.exports = {
   setOrder:function(items){
